@@ -64,26 +64,26 @@ export default function ProfileScreen() {
     const unsubscribe = onSnapshot(
       userDocRef,
       async (snapshot) => {
-        if (!snapshot.exists()) {
-          // better choice : use cloud function to create the user profile
-          const createdAt = Timestamp.now();
-          const initialData: UserProfile = {
-            uid: user.uid,
-            email: user.email ?? "",
-            nickname: user.email?.split("@")[0] ?? "New User",
-            avatarUrl: "",
-            createdAt,
-          };
-          await setDoc(
-            userDocRef,
-            { ...initialData, createdAt: serverTimestamp() },
-            { merge: true },
-          );
-          setProfile(initialData);
-          setNickname(initialData.nickname);
-          setLoading(false);
-          return;
-        }
+        // if (!snapshot.exists()) {
+        //   // better choice : use cloud function to create the user profile
+        //   const createdAt = Timestamp.now();
+        //   const initialData: UserProfile = {
+        //     uid: user.uid,
+        //     email: user.email ?? "",
+        //     nickname: user.email?.split("@")[0] ?? "New User",
+        //     avatarUrl: "",
+        //     createdAt,
+        //   };
+        //   await setDoc(
+        //     userDocRef,
+        //     { ...initialData, createdAt: serverTimestamp() },
+        //     { merge: true },
+        //   );
+        //   setProfile(initialData);
+        //   setNickname(initialData.nickname);
+        //   setLoading(false);
+        //   return;
+        // }
 
         const data = snapshot.data() as Partial<UserProfile>;
         const createdAt =
